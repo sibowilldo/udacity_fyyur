@@ -8,6 +8,7 @@ import babel
 from flask import Flask, render_template, request, Response, flash, redirect, url_for
 from flask_moment import Moment
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 import logging
 from logging import Formatter, FileHandler
 from flask_wtf import Form
@@ -20,6 +21,7 @@ app = Flask(__name__)
 moment = Moment(app)
 app.config.from_object('config')
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 # TODO: connect to a local postgresql database
 
@@ -27,17 +29,21 @@ db = SQLAlchemy(app)
 # Models.
 #----------------------------------------------------------------------------#
 
+
 class Venue(db.Model):
     __tablename__ = 'Venue'
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
-    city = db.Column(db.String(120))
-    state = db.Column(db.String(120))
+    city = db.Column(db.String(120))  # make relationship
+    state = db.Column(db.String(120))  # Remove due to relationship with City
     address = db.Column(db.String(120))
     phone = db.Column(db.String(120))
     image_link = db.Column(db.String(500))
     facebook_link = db.Column(db.String(120))
+    # ToDo: Add Genres relations
+    #       Add Looking for Talent Bool default F
+    #       Add Seeking Description nullable
 
     # TODO: implement any missing fields, as a database migration using Flask-Migrate
 
@@ -46,14 +52,19 @@ class Artist(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
-    city = db.Column(db.String(120))
-    state = db.Column(db.String(120))
+    city = db.Column(db.String(120))  # make relationship
+    state = db.Column(db.String(120))  # Remove due to relationship with City
     phone = db.Column(db.String(120))
     genres = db.Column(db.String(120))
     image_link = db.Column(db.String(500))
     facebook_link = db.Column(db.String(120))
+    # ToDo: Add Genres relations
+    #       Add Looking for Venues Bool default F
+    #       Add Seeking Description nullable
 
     # TODO: implement any missing fields, as a database migration using Flask-Migrate
+
+    # ToDo: Show Models [Name, Artists, Venues, ShowDates]
 
 # TODO Implement Show and Artist models, and complete all model relationships and properties, as a database migration.
 
