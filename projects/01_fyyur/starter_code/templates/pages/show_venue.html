@@ -17,18 +17,21 @@
 		<p>
 			<i class="fas fa-globe-americas"></i> {{ venue.city.name }}, {{ venue.city.state_province.name }}
 		</p>
+        {% if venue.phone %}
 		<p>
-			<i class="fas fa-map-marker"></i> {% if venue.address %}{{ venue.address }}{% else %}No Address{% endif %}
+			<i class="fas fa-phone-alt"></i> {{ venue.phone }}
+        </p>
+        {% endif %}
+        {% if venue.website %}
+        <p>
+			<i class="fas fa-link"></i> <a href="{{ venue.website }}" target="_blank">{{ venue.website }}</a>
 		</p>
+        {% endif %}
+        {% if venue.facebook_link %}
 		<p>
-			<i class="fas fa-phone-alt"></i> {% if venue.phone %}{{ venue.phone }}{% else %}No Phone{% endif %}
-		</p>
-		<p>
-			<i class="fas fa-link"></i> {% if venue.website %}<a href="{{ venue.website }}" target="_blank">{{ venue.website }}</a>{% else %}No Website{% endif %}
-		</p>
-		<p>
-			<i class="fab fa-facebook-f"></i> {% if venue.facebook_link %}<a href="{{ venue.facebook_link }}" target="_blank">{{ venue.facebook_link }}</a>{% else %}No Facebook Link{% endif %}
-		</p>
+			<i class="fab fa-facebook-f"></i> <a href="{{ venue.facebook_link }}" target="_blank">{{ venue.facebook_link }}</a>
+        </p>
+        {% endif %}
 		{% if venue.is_seeking_talent %}
 		<div class="seeking">
 			<p class="lead">Currently seeking talent</p>
@@ -43,7 +46,7 @@
 		{% endif %}
 	</div>
 	<div class="col-sm-6">
-		<img src="{{ venue.image_link }}" alt="Venue Image" />
+		<img src="{{ venue.image_link }}" alt="Venue Image"  class="max-height-300 width-full aspect-ratio landscape position-center fit-cover"/>
 	</div>
 </div>
 <section>
@@ -52,8 +55,8 @@
 		{%for show in venue.upcoming_shows() %}
 		<div class="col-sm-4">
 			<div class="tile tile-show">
-				<img src="{{ show.artist_image_link }}" alt="Show Artist Image" />
-				<h5><a href="/artists/{{ show.artist_id }}">{{ show.artist_name }}</a></h5>
+				<img src="{{ show.artists[0].image_link }}" alt="Artist Image, {{ show.artists[0].name }}"  class="width-full aspect-ratio tv position-top fit-cover"/>
+				<h5><a href="/artists/{{ show.artists[0].id }}">{{ show.artists[0].name }}</a></h5>
 				<h6>{{ show.scheduled_at|datetime('full') }}</h6>
 			</div>
 		</div>
@@ -66,8 +69,8 @@
 		{%for show in venue.past_shows() %}
 		<div class="col-sm-4">
 			<div class="tile tile-show">
-				<img src="{{ show.artist_image_link }}" alt="Show Artist Image" />
-				<h5><a href="/artists/{{ show.artist_id }}">{{ show.artist_name }}</a></h5>
+			<img src="{{ show.artists[0].image_link }}" alt="Artist Image, {{ show.artists[0].name }}" class="width-full aspect-ratio tv position-top fit-cover"/>
+				<h5><a href="/artists/{{ show.artists[0].id }}">{{ show.artists[0].name }}</a></h5>
 				<h6>{{ show.scheduled_at|datetime('full') }}</h6>
 			</div>
 		</div>
