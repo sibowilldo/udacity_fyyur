@@ -5,11 +5,16 @@
         {% for show in shows %}
             <div class="col-sm-4">
                 <div class="tile tile-show">
-                    <img src="{{ show.artist_image_link }}" alt="Artist Image"/>
-                    <h4>{{ show.start_time|datetime('full') }}</h4>
-                    <h5><a href="/artists/{{ show.artist_id }}">{{ show.artist_name }}</a></h5>
-                    <p>playing at</p>
-                    <h5><a href="/venues/{{ show.venue_id }}">{{ show.venue_name }}</a></h5>
+                    <img src="{{ show.artists[0].image_link }}" alt="Artist Image"/>
+                    <h4>{{ show.scheduled_at|datetime('full') }}</h4>
+                    <h5><a href="/artists/{{ show.artists[0].id }}">{{ show.name }}</a></h5>
+                    <p style="display: flex; align-items: center; justify-content: center; gap: 5px">
+                        Artist line-up:
+                        {% for artist in show.artists %}
+                            <span class="tags tags-default"><a href="{{ url_for('routes.artist_show', artist_id=artist.id) }}">{{ artist.name }}</a></span>
+                        {% endfor %}
+                    </p>
+                    <h5><a href="/venues/{{ show.venue_id }}">{{ show.venues[0].name }}</a></h5>
                 </div>
             </div>
         {% endfor %}

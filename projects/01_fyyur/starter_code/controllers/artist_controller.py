@@ -21,8 +21,8 @@ class ArtistController:
     @staticmethod
     def store():
         # called upon submitting the new artist listing form
-        # TODO: insert form data as a new Venue record in the db, instead
-        # TODO: modify data to be the data object returned from db insertion
+        # Complete: insert form data as a new Venue record in the db, instead
+        # Complete: modify data to be the data object returned from db insertion
         error = False
         form = request.form
         data = {}
@@ -49,12 +49,12 @@ class ArtistController:
         finally:
             db.session.close()
 
-        if not error:
-            # on successful db insert, flash success
-            flash('Artist ' + request.form['name'] + ' was successfully listed!')
-        else:
-            # TODO: on unsuccessful db insert, flash an error instead.
+        if error:
+            # Complete: on unsuccessful db insert, flash an error instead.
             flash('An error occurred. Artist ' + form.get('name') + ' could not be listed.')
+        else:
+            # on successful db insert, flash success
+            flash('Artist ' + data['name'] + ' was successfully listed!')
 
         return render_template('pages/home.html')
 
@@ -83,7 +83,7 @@ class ArtistController:
             'selected_genres': selected_genres
         }
 
-        # TODO: populate form with fields from artist with ID <artist_id>
+        # Complete: populate form with fields from artist with ID <artist_id>
         return render_template('forms/edit_artist.html', form=form, artist=artist, data=data)
 
     @staticmethod

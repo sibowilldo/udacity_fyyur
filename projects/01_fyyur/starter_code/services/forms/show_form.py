@@ -1,50 +1,38 @@
-from ...app import Form, StringField, URLField, HiddenField, DataRequired, SelectField, SelectMultipleField, URL, BooleanField
-from ...models import City, Genre
+from datetime import datetime
+from flask_wtf import Form
+from wtforms import StringField, SelectField, DateTimeField
+from wtforms.validators import DataRequired
+from ...app import db
+from ...models import Artist, Venue
 
-
-def city_choices():
-    return map(lambda city: (city.id, city.name), City.query.all())
-
-
-def genre_choices():
-    return map(lambda genre: (genre.id, genre.name), Genre.query.all())
+artists = map(lambda artist: (artist.id, artist.name),
+              db.session.query(Artist).with_entities(Artist.id, Artist.name).all())
+venues = map(lambda venue: (venue.id, venue.name),
+             db.session.query(Venue).with_entities(Venue.id, Venue.name).all())
 
 
 class ShowForm(Form):
-    _token = HiddenField('csrf_token')
 
     name = StringField(
         'name', validators=[DataRequired()]
     )
-    city = SelectField(
-        'city', validators=[DataRequired()],
-        choices=list(city_choices())
+    artist_id = SelectField(
+        'artist_id', validators=[DataRequired()],
+        choices=list(artists)
     )
-    address = StringField(
-        'address', validators=[DataRequired()]
+    venue_id = SelectField(
+        'venue_id', validators=[DataRequired()],
+        choices=list(venues)
     )
-    phone = StringField(
-        'phone'
+    scheduled_at = DateTimeField(
+        'scheduled_at',
+        validators=[DataRequired()]
     )
-    image_link = URLField(
-        'image_link'
-    )
-    genres = SelectMultipleField(
+
+    status_is = SelectField(
         # TODO implement enum restriction
-        'genres', validators=[DataRequired()],
-        choices=list(genre_choices())
+        'status_is', validators=[DataRequired()],
+        choices=['Draft', 'Scheduled', 'Expired', 'Ongoing', 'Postponed', 'Cancelled']
 
-    )
-    facebook_link = URLField(
-        'facebook_link', validators=[URL()]
-    )
-    website = URLField(
-        'website'
-    )
-
-    is_seeking_talent = BooleanField('is_seeking_talent')
-
-    seeking_description = StringField(
-        'seeking_description'
     )
 

@@ -234,3 +234,29 @@ h2.monospace {
 .max-height-500{max-height: 500px !important}
 .max-height-400{max-height: 400px !important}
 .max-height-300{max-height: 300px !important}
+
+.tags{
+  background-color: #2E3440;
+  display: flex;
+  padding: .2em .4em;
+  align-items: center;
+  border-radius: 3px;
+
+}
+
+.tags a{
+  display: block;
+  text-decoration: none;
+  font-size: .75em;
+  line-height: 1em;
+  color: #ECEFF4;
+  font-weight: 700;
+}
+
+.tags:hover{
+  background-color: #ECEFF4;
+}
+.tags:hover a{
+  color: #5E81AC;
+  background-color: #ECEFF4;
+}

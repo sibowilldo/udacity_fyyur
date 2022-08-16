@@ -1,24 +1,44 @@
 {% extends 'layouts/main.html' %}
 {% block title %}New Show Listing{% endblock %}
 {% block content %}
-  <div class="form-wrapper">
-    <form method="post" class="form">
-      <h3 class="form-heading">List a new show</h3>
-      <div class="form-group">
-        <label for="artist_id">Artist ID</label>
-        <small>ID can be found on the Artist's Page</small>
-        {{ form.artist_id(class_ = 'form-control', autofocus = true) }}
-      </div>
-      <div class="form-group">
-        <label for="venue_id">Venue ID</label>
-        <small>ID can be found on the Venue's Page</small>
-        {{ form.venue_id(class_ = 'form-control', autofocus = true) }}
-      </div>
-      <div class="form-group">
-          <label for="start_time">Start Time</label>
-          {{ form.start_time(class_ = 'form-control', placeholder='YYYY-MM-DD HH:MM', autofocus = true) }}
-        </div>
-      <input type="submit" value="Create Venue" class="btn btn-primary btn-lg btn-block">
-    </form>
-  </div>
+    <div class="form-wrapper">
+        <form method="post" class="form" action="{{ url_for('routes.show_store') }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <h3 class="form-heading">List a new show</h3>
+            <div class="form-group">
+                <label for="name">Show Name/Title</label>
+                {{ form.name(class_ = 'form-control', placeholder='e.g Comic Con Africa') }}
+            </div>
+            <div class="form-group">
+                <label for="artist_id">Artist ID</label>
+                <small>ID can be found on the Artist's Page</small>
+                {{ form.artist_id(class_ = 'form-control select2') }}
+            </div>
+            <div class="form-group">
+                <label for="venue_id">Venue ID</label>
+                <small>ID can be found on the Venue's Page</small>
+                {{ form.venue_id(class_ = 'form-control select2') }}
+            </div>
+            <div class="form-group" style="position: relative">
+                <label for="scheduled_at">Start Time</label>
+                {{ form.scheduled_at(class_ = 'form-control', placeholder='YYYY-MM-DD HH:MM', style='position:relative') }}
+            </div>
+            <div class="form-group">
+                <label for="status_is">Show Status</label>
+                {{ form.status_is(class_ = 'form-control select2') }}
+            </div>
+            <input type="submit" value="Create Venue" class="btn btn-primary btn-lg btn-block">
+        </form>
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js" defer></script>
+    <script>
+    $(document).ready(function(){
+        $('#scheduled_at').datetimepicker({
+              viewMode: 'years',
+              format: 'YYYY-MM-DD HH:mm'
+          })
+    })
+    </script>
 {% endblock %}
