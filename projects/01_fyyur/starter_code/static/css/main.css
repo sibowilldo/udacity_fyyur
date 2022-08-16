@@ -209,3 +209,28 @@ h2.monospace {
 .subtitle {
   opacity: 0.5;
 }
+
+/* =================================================================  */
+/*                        Helper Classes                              */
+/* =================================================================  */
+
+.aspect-ratio.square{aspect-ratio: 1/1;}
+.aspect-ratio.landscape{aspect-ratio: 16/9;}
+.aspect-ratio.potrait{aspect-ratio: 9/16;}
+.aspect-ratio.tv{aspect-ratio: 4/3;}
+.aspect-ratio.fit-cover{object-fit: cover}
+.aspect-ratio.fit-contain{object-fit: contain}
+.aspect-ratio.fit-fill{object-fit:fill}
+.aspect-ratio.fit-none{object-fit:none}
+.aspect-ratio.fit-scale-down{object-fit:scale-down}
+.aspect-ratio.position-center{object-position:center center}
+.aspect-ratio.position-top{object-position:top}
+.aspect-ratio.position-bottom{object-position:bottom}
+
+.width-full{width:100% !important}
+.height-500{height: 500px !important}
+.height-400{height: 400px !important}
+.height-300{height: 300px !important}
+.max-height-500{max-height: 500px !important}
+.max-height-400{max-height: 400px !important}
+.max-height-300{max-height: 300px !important}
