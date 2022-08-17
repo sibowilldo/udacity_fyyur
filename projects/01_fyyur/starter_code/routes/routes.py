@@ -1,6 +1,6 @@
-from .app import render_template
+from ..app import render_template
 from flask import Blueprint
-from .controllers import VenueController, HomeController, ArtistController, ShowController
+from ..controllers import VenueController, HomeController, ArtistController, ShowController
 
 routes = Blueprint('routes', __name__)
 
@@ -19,98 +19,102 @@ def not_found_error(error):
 def server_error(error):
     return HomeController.server_error(error)
 
+# TODO: [VS-1] Apply Blueprints to All Routes, then...
+# TODO: [VS-2] Update all Affected Controllers, then...
+# TODO: [VS-3] Update all affected Templates
 
+venues=Blueprint('venues', __name__, url_prefix='venues')
 class Venues:
     @staticmethod
-    @routes.get('/venues')
-    def venues():
+    @venues.get('/')
+    def index():
         return VenueController.index()
 
     @staticmethod
-    @routes.post('/venues/search')
-    def venue_search():
+    @venues.post('/search')
+    def search():
         return VenueController.search()
 
     @staticmethod
-    @routes.get('/venues/<int:venue_id>')
-    def venue_show(venue_id):
+    @venues.get('/<int:venue_id>')
+    def show(venue_id):
         return VenueController.show(venue_id)
 
     @staticmethod
-    @routes.get('/venues/create')
-    def venue_edit():
+    @venues.get('/create')
+    def create():
         return VenueController.create()
 
     @staticmethod
-    @routes.post('/venues/create')
-    def venue_store():
+    @venues.post('/create')
+    def store():
         return VenueController.store()
 
     @staticmethod
-    @routes.get('/venues/<int:venue_id>/edit')
-    def edit_venue(venue_id):
+    @venues.get('/<int:venue_id>/edit')
+    def edit(venue_id):
         return VenueController.edit(venue_id)
 
     @staticmethod
-    @routes.post('/venues/<int:venue_id>/update')
-    def venue_update(venue_id):
+    @venues.post('/<int:venue_id>/update')
+    def update(venue_id):
         return VenueController.update(venue_id)
 
     @staticmethod
-    @routes.delete('/venues/<venue_id>')
+    @venues.delete('/<venue_id>')
     def venue_destroy(venue_id):
         return VenueController.destroy(venue_id)
 
-
+artists= Blueprint('artists', __name__,url_prefix='artists')
 class Artists:
     @staticmethod
-    @routes.get('/artists')
-    def artists():
+    @artists.get('/')
+    def index():
         return ArtistController.index()
 
     @staticmethod
-    @routes.get('/artists/create')
-    def artist_create():
+    @artists.get('/create')
+    def create():
         return ArtistController.create()
 
     @staticmethod
-    @routes.post('/artists/create')
-    def artist_store():
+    @artists.post('/create')
+    def store():
         return ArtistController.store()
 
     @staticmethod
-    @routes.get('/artists/<int:artist_id>')
-    def artist_show(artist_id):
+    @artists.get('/<int:artist_id>')
+    def show(artist_id):
         return ArtistController.show(artist_id)
 
     @staticmethod
-    @routes.get('/artists/<int:artist_id>/edit')
-    def artist_edit(artist_id):
+    @artists.get('/<int:artist_id>/edit')
+    def edit(artist_id):
         return ArtistController.edit(artist_id)
 
     @staticmethod
-    @routes.post('/artists/<int:artist_id>/update')
-    def artist_update(artist_id):
+    @artists.post('/<int:artist_id>/update')
+    def update(artist_id):
         return ArtistController.update(artist_id)
 
     @staticmethod
-    @routes.post('/artists/search')
-    def artist_search():
+    @artists.post('/search')
+    def search():
         return ArtistController.search()
 
-
+shows=Blueprint('shows', __name__, url_prefix='shows')
 class Shows:
     @staticmethod
-    @routes.get('/shows')
-    def shows():
+    @shows.get('/')
+    def index():
         return ShowController.index()
 
     @staticmethod
-    @routes.get('/shows/create')
-    def show_create():
+    @shows.get('/create')
+    def create():
         return ShowController.create()
 
     @staticmethod
-    @routes.post('/shows/create')
-    def show_store():
+    @shows.post('/create')
+    def store():
         return ShowController.store()
