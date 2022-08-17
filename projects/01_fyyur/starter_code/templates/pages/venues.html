@@ -6,7 +6,7 @@
         <ul class="items">
             {% for venue in city.venues %}
                 <li>
-                    <a href="/venues/{{ venue.id }}">
+                    <a href="{{ url_for('venues.show', venue_id= venue.id) }}">
                         <i class="fas fa-music"></i>
                         <div class="item">
                             <h5>{{ venue.name }} <span

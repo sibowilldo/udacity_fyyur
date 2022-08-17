@@ -23,7 +23,7 @@ def server_error(error):
 # TODO: [VS-2] Update all Affected Controllers, then...
 # TODO: [VS-3] Update all affected Templates
 
-venues=Blueprint('venues', __name__, url_prefix='venues')
+venues=Blueprint('venues', __name__, url_prefix='/venues')
 class Venues:
     @staticmethod
     @venues.get('/')
@@ -61,11 +61,11 @@ class Venues:
         return VenueController.update(venue_id)
 
     @staticmethod
-    @venues.delete('/<venue_id>')
-    def venue_destroy(venue_id):
+    @venues.post('/<venue_id>')
+    def destroy(venue_id):
         return VenueController.destroy(venue_id)
 
-artists= Blueprint('artists', __name__,url_prefix='artists')
+artists= Blueprint('artists', __name__,url_prefix='/artists')
 class Artists:
     @staticmethod
     @artists.get('/')
@@ -102,7 +102,7 @@ class Artists:
     def search():
         return ArtistController.search()
 
-shows=Blueprint('shows', __name__, url_prefix='shows')
+shows=Blueprint('shows', __name__, url_prefix='/shows')
 class Shows:
     @staticmethod
     @shows.get('/')

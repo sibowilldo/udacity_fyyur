@@ -57,7 +57,7 @@
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li>
-                        {% if ('routes.venue' in request.endpoint) %}
+                        {% if ('venue' in request.endpoint) %}
                             <form class="search" method="post" action="/venues/search">
                                 <input type="hidden" value="{{ csrf_token() }}" name="csrf_token">
                                 <input class="form-control"
@@ -66,7 +66,7 @@
                                        placeholder="Find a venue"
                                        aria-label="Search">
                             </form>
-                        {% elif ('routes.artist' in request.endpoint) %}
+                        {% elif ('artist' in request.endpoint) %}
                             <form class="search" method="post" action="/artists/search">
                                 <input type="hidden" value="{{ csrf_token() }}" name="csrf_token">
                                 <input class="form-control"
@@ -75,7 +75,7 @@
                                        placeholder="Find an artist"
                                        aria-label="Search">
                             </form>
-                        {% elif ('routes.show' in request.endpoint) %}
+                        {% elif ('show' in request.endpoint) %}
                             <form class="search" method="post" action="/shows/search">
                                 <input type="hidden" value="{{ csrf_token() }}" name="csrf_token">
                                 <input class="form-control"
@@ -88,12 +88,12 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav">
-                    <li {% if request.endpoint == 'routes.venues' %} class="active" {% endif %}><a
-                            href="{{ url_for('routes.venues') }}">Venues</a></li>
-                    <li {% if request.endpoint == 'routes.shows' %} class="active" {% endif %}><a
-                            href="{{ url_for('routes.shows') }}">Shows</a></li>
-                    <li {% if request.endpoint == 'routes.artists' %} class="active" {% endif %}><a
-                            href="{{ url_for('routes.artists') }}">Artists</a></li>
+                    <li {% if request.endpoint == 'venues.index' %} class="active" {% endif %}><a
+                            href="{{ url_for('venues.index') }}">Venues</a></li>
+                    <li {% if request.endpoint == 'shows.index' %} class="active" {% endif %}><a
+                            href="{{ url_for('shows.index') }}">Shows</a></li>
+                    <li {% if request.endpoint == 'artists.index' %} class="active" {% endif %}><a
+                            href="{{ url_for('artists.index') }}">Artists</a></li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div>

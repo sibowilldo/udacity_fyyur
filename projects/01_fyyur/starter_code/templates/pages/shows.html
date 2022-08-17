@@ -7,14 +7,14 @@
                 <div class="tile tile-show">
                     <img src="{{ show.artists[0].image_link }}" alt="Artist Image"/>
                     <h4>{{ show.scheduled_at|datetime('full') }}</h4>
-                    <h5><a href="/artists/{{ show.artists[0].id }}">{{ show.name }}</a></h5>
+                    <h5><a href="{{ url_for('artists.show', artist_id= show.artists[0].id) }}">{{ show.name }}</a></h5>
                     <p style="display: flex; align-items: center; justify-content: center; gap: 5px">
                       <i class="fa fa-users"></i> Line-up:
                         {% for artist in show.artists %}
-                            <span class="tags tags-default"><a href="{{ url_for('routes.artist_show', artist_id=artist.id) }}">{{ artist.name }}</a></span>
+                            <span class="tags tags-default"><a href="{{ url_for('artists.show', artist_id=artist.id) }}">{{ artist.name }}</a></span>
                         {% endfor %}
                     </p>
-                    <h5><i class="fa fa-map-marker"></i> <a href="/venues/{{ show.venue_id }}">{{ show.venues[0].name }}</a></h5>
+                    <h5><i class="fa fa-map-marker"></i> <a href="{{ url_for('venues.show', venue_id=show.venues[0].id) }}">{{ show.venues[0].name }}</a></h5>
                 </div>
             </div>
         {% endfor %}

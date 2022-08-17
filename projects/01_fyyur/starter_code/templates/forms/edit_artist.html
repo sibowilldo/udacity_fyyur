@@ -2,7 +2,7 @@
 {% block title %}Edit Artist{% endblock %}
 {% block content %}
     <div class="form-wrapper">
-        <form class="form" method="post" action="/artists/{{ artist.id }}/update">
+        <form class="form" method="post" action="{{ url_for('artists.update', artist_id=artist.id) }}">
             <h3 class="form-heading">Edit artist <em>{{ artist.name }}</em></h3>
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <div class="form-group">

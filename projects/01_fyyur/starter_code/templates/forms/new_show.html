@@ -2,7 +2,7 @@
 {% block title %}New Show Listing{% endblock %}
 {% block content %}
     <div class="form-wrapper">
-        <form method="post" class="form" action="{{ url_for('routes.show_store') }}">
+        <form method="post" class="form" action="{{ url_for('shows.store') }}">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <h3 class="form-heading">List a new show</h3>
             <div class="form-group">

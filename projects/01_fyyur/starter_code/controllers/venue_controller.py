@@ -50,12 +50,10 @@ class VenueController:
 
         finally:
             db.session.close()
-        if not error:
-            flash(message=f'Venue {data["name"]}was successfully listed!',
-                  category="success")  # on successful db insert, flash success
-        else:
-            flash(
-                f'An error occurred. Venue {data["name"]} could not be listed.')  # on unsuccessful db insert, flash an error instead.
+        if not error: # on successful db insert, flash success
+            flash(f'Venue {data["name"]}was successfully listed!', "success")
+        else:# on unsuccessful db insert, flash an error instead.
+            flash( f'An error occurred. Venue {data["name"]} could not be listed.')
 
         return render_template('pages/home.html')
 
@@ -108,13 +106,13 @@ class VenueController:
         finally:
             db.session.close()
         if error:
-            flash(f'Error! Something went wrong trying to save { form.get("name") }')
+            flash(f'Error! Something went wrong trying to save { form.get("name") }', 'danger')
         else:
             venue = Venue.query.get(venue_id)
-            flash(f'Success, {venue.name} details were updated!')
+            flash(f'Success, {venue.name} details were updated!', 'success')
         # Complete: take values from the form submitted, and update existing
         # venue record with ID <venue_id> using the new attributes
-        return redirect(url_for('routes.venue_show', venue_id=venue_id))
+        return redirect(url_for('venues.show', venue_id=venue_id))
 
     @staticmethod
     def destroy(venue_id):
@@ -124,7 +122,8 @@ class VenueController:
 
         # BONUS CHALLENGE: Implement a button to delete a Venue on a Venue Page, have it so that
         # clicking that button delete it from the db then redirect the user to the homepage
-        return None
+        flash(f'{venue_id} was deleted successfully', 'success')
+        return redirect(url_for('venues.index'))
 
     @staticmethod
     def search():

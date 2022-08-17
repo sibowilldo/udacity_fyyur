@@ -51,10 +51,10 @@ class ArtistController:
 
         if error:
             # Complete: on unsuccessful db insert, flash an error instead.
-            flash('An error occurred. Artist ' + form.get('name') + ' could not be listed.')
+            flash(f'An error occurred. Artist { form.get("name") } could not be listed.', 'danger')
         else:
             # on successful db insert, flash success
-            flash('Artist ' + data['name'] + ' was successfully listed!')
+            flash(f'Artist { data["name"] } was successfully listed!', 'success')
 
         return render_template('pages/home.html')
 
@@ -123,7 +123,7 @@ class ArtistController:
 
         # Complete: take values from the form submitted, and update existing
 
-        return redirect(url_for('routes.artist_show', artist_id=artist_id))
+        return redirect(url_for('artists.show', artist_id=artist_id))
 
     @staticmethod
     def search():

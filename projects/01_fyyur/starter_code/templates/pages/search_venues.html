@@ -5,7 +5,7 @@
 <ul class="items">
 	{% for venue in results.data %}
 	<li>
-		<a href="/venues/{{ venue.id }}">
+		<a href="{{ url_for('venues.show', venue_id=venue.id) }}">
 			<i class="fas fa-music"></i>
 			<div class="item">
 				<h5>{{ venue.name }}</h5>
@@ -14,5 +14,5 @@
 	</li>
 	{% endfor %}
 </ul>
-<a href="/venues"><button class="btn btn-primary btn-lg">Back to Venues</button></a>
+<a href="{{ url_for('venues.index') }}"><button class="btn btn-primary btn-lg">Back to Venues</button></a>
 {% endblock %}

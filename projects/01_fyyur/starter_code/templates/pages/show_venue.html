@@ -67,7 +67,7 @@
                             Artist line-up:
                             {% for artist in show.artists %}
                                 <span class="tags tags-default"><a
-                                        href="{{ url_for('routes.artist_show', artist_id=artist.id) }}">{{ artist.name }}</a></span>
+                                        href="{{ url_for('artists.show', artist_id=artist.id) }}">{{ artist.name }}</a></span>
                             {% endfor %}
                         </p>
                     </div>
@@ -90,7 +90,7 @@
                             Artist line-up:
                             {% for artist in show.artists %}
                                 <span class="tags tags-default"><a
-                                        href="{{ url_for('routes.artist_show', artist_id=artist.id) }}">{{ artist.name }}</a></span>
+                                        href="{{ url_for('artists.show', artist_id=artist.id) }}">{{ artist.name }}</a></span>
                             {% endfor %}
                         </p>
                     </div>
@@ -99,7 +99,7 @@
         </div>
     </section>
 
-    <a href="/venues/{{ venue.id }}/edit">
+    <a href="{{ url_for('venues.show', venue_id=venue.id) }}/edit">
         <button class="btn btn-primary btn-lg">Edit</button>
     </a>
 
