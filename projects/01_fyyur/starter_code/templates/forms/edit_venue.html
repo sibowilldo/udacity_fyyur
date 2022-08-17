@@ -72,7 +72,7 @@
         <br><br><br>
         <form action="{{ url_for('venues.destroy', venue_id=venue.id) }}" method="post">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-            <button class="btn btn-link btn-delete" data-resource-id="{{ venue.id }}">Delete Venue</button>
+            <button class="btn btn-danger btn-block btn-delete" data-resource-id="{{ venue.id }}" style="border: 1px solid">Delete Venue</button>
         </form>
     </div>
 {% endblock %}

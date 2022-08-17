@@ -1,5 +1,27 @@
+## UPDATED FOLDER STRUCTURE (Additions/Changes ONLY)
+
+  ```sh
+
+  ├── controllers [Application Business Logic is housed here]
+  ├── models [Houses Models, Model Mixins and Pivot definitions]
+  ├── routes [Has all BluePrint routes]
+  ├── services
+      ├── forms [form initializations]
+      ├── util [utilities e.g date formatting]
+
+  ```
+## 😉 Niceys Added
+* **Genres** are saved on DB with relationships to Artists and Venues
+* **Citis & States** are saved on DB with relationships to Artists and Venues
+* **Named Routes** used through the site
+* **Select2** in all Dropdowns
+* **DataTime Selector** when adding new Show
+* **SWAL (SweetAlert)** when deleting Venue
+
+================================================================================================
+
 Fyyur
------
+-----s
 
 ## Introduction
 
