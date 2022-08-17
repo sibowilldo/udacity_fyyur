@@ -69,9 +69,52 @@
 
             <input type="submit" value="Edit Venue" class="btn btn-primary btn-lg btn-block">
         </form>
+        <br><br><br>
         <form action="{{ url_for('venues.destroy', venue_id=venue.id) }}" method="post">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-            <button class="btn btn-link">Delete Venue</button>
+            <button class="btn btn-link btn-delete" data-resource-id="{{ venue.id }}">Delete Venue</button>
         </form>
     </div>
+{% endblock %}
+{% block scripts %}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js" defer></script>
+    <script>
+        $(document).ready(function () {
+            $('.btn-delete').on('click', (e) => {
+                e.preventDefault()
+                swal({
+                    title: "Are you sure?",
+                    text: "This action cannot be undone!",
+                    icon: "warning",
+                    buttons: ['Abort', 'Yes, I\'m sure.'],
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            const req = new Request("{{ url_for('venues.destroy') }}", {
+                                method: 'DELETE',
+                                headers: {'Content-Type': 'application/json', 'X-CSRF-TOKEN': '{{ csrf_token() }}'},
+                                body: JSON.stringify({
+                                    venue_id: {{ venue.id }},
+                                })
+                            })
+                            fetch(req).then(response => {
+                                if (response.status === 200) {
+                                }
+                                return response.json()
+                            }).then(data => {
+                                swal(data.flash, {
+                                    icon: "success",
+                                }).then(() => {
+                                    window.location.replace(data.redirect_to)
+                                });
+                            })
+                        } else {
+                            swal("Request Aborted!");
+                        }
+                    });
+            })
+
+        })
+    </script>
 {% endblock %}

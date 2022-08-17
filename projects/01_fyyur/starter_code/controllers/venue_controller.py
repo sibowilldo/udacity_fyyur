@@ -1,4 +1,4 @@
-from ..app import render_template, request, db, flash, redirect, url_for
+from ..app import render_template, request, db, flash, redirect, url_for, jsonify
 from ..models import City, Venue, Genre
 from ..services.forms import VenueForm
 
@@ -50,10 +50,10 @@ class VenueController:
 
         finally:
             db.session.close()
-        if not error: # on successful db insert, flash success
+        if not error:  # on successful db insert, flash success
             flash(f'Venue {data["name"]}was successfully listed!', "success")
-        else:# on unsuccessful db insert, flash an error instead.
-            flash( f'An error occurred. Venue {data["name"]} could not be listed.')
+        else:  # on unsuccessful db insert, flash an error instead.
+            flash(f'An error occurred. Venue {data["name"]} could not be listed.')
 
         return render_template('pages/home.html')
 
@@ -106,7 +106,7 @@ class VenueController:
         finally:
             db.session.close()
         if error:
-            flash(f'Error! Something went wrong trying to save { form.get("name") }', 'danger')
+            flash(f'Error! Something went wrong trying to save {form.get("name")}', 'danger')
         else:
             venue = Venue.query.get(venue_id)
             flash(f'Success, {venue.name} details were updated!', 'success')
@@ -115,15 +115,36 @@ class VenueController:
         return redirect(url_for('venues.show', venue_id=venue_id))
 
     @staticmethod
-    def destroy(venue_id):
-        print(venue_id)
-        # TODO: Complete this endpoint for taking a venue_id, and using
+    def destroy():
+        error = False
+        data = {}
+        try:
+            venue = Venue.query.filter(Venue.id == request.json['venue_id']).first_or_404()
+            data['name'] = venue.name
+            venue.shows = []
+            venue.genres = []
+            db.session.delete(venue)
+            db.session.commit()
+            data['redirect_to'] = url_for('routes.home')
+        except:
+            error = True
+            data['redirect_to'] = url_for('venues.edit', venue_id=request.form['venue_id'])
+            db.session.rollback()
+        finally:
+            db.session.close()
+
+        if error:
+            data['flash'] = f'Error! Something went wrong while trying to delete Venue'
+        else:
+            data['flash'] = f'{data["name"]} was deleted successfully'
+
+        # Complete: Complete this endpoint for taking a venue_id, and using
         # SQLAlchemy ORM to delete a record. Handle cases where the session commit could fail.
 
         # BONUS CHALLENGE: Implement a button to delete a Venue on a Venue Page, have it so that
         # clicking that button delete it from the db then redirect the user to the homepage
-        flash(f'{venue_id} was deleted successfully', 'success')
-        return redirect(url_for('venues.index'))
+        print(data)
+        return data
 
     @staticmethod
     def search():

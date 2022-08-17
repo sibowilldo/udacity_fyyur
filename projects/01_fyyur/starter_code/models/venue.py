@@ -18,10 +18,10 @@ class Venue(HasTimestamps, db.Model):
     city_id = db.Column(db.ForeignKey('cities.id'), nullable=False)
 
     genres = db.relationship('Genre', secondary=genre_venue,
-                             lazy='subquery', backref=db.backref('venues', lazy=True))
+                             lazy=False, backref=db.backref('venues', lazy=True))
 
-    shows = db.relationship('Show', secondary=show_venue, collection_class=set,
-                            lazy='subquery', backref=db.backref('venues', lazy=True))
+    shows = db.relationship('Show', secondary=show_venue,
+                            lazy=False, backref=db.backref('venues', lazy=True))
 
     def __repr__(self) -> str:
         return f'<Venue {self.id} {self.name} {self.genres}>'

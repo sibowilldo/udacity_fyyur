@@ -22,7 +22,6 @@ class ShowController:
 
     @staticmethod
     def store():
-        print(request.form)
         error = False
         # called to create new shows in the db, upon submitting new show listing form
         # Complete: insert form data as a new Show record in the db, instead

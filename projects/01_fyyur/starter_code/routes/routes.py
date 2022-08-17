@@ -61,9 +61,9 @@ class Venues:
         return VenueController.update(venue_id)
 
     @staticmethod
-    @venues.post('/<venue_id>')
-    def destroy(venue_id):
-        return VenueController.destroy(venue_id)
+    @venues.delete('/delete')
+    def destroy():
+        return VenueController.destroy()
 
 artists= Blueprint('artists', __name__,url_prefix='/artists')
 class Artists:

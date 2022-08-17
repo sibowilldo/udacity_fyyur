@@ -10,7 +10,7 @@ import json
 import logging
 
 from datetime import datetime
-from flask import Flask, render_template, request, Response, flash, redirect, url_for, Blueprint
+from flask import Flask, render_template, request, Response, flash, redirect, url_for, Blueprint, jsonify
 from flask_migrate import Migrate
 from flask_moment import Moment
 from flask_sqlalchemy import SQLAlchemy
