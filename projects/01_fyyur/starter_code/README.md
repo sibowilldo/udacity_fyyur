@@ -1,18 +1,25 @@
 ## UPDATED FOLDER STRUCTURE (Additions/Changes ONLY)
+> **🛑 Note** - SEED DATA IS REQUIRED **fyyur export-db data/SEED DATA.sql**. 
 
   ```sh
-
-  ├── controllers [Application Business Logic is housed here]
-  ├── models [Houses Models, Model Mixins and Pivot definitions]
-  ├── routes [Has all BluePrint routes]
-  ├── services
-      ├── forms [form initializations]
-      ├── util [utilities e.g date formatting]
+├── fyyur export-db data [Has Insert Query Script, which can seed Countries, Cities & Genres]
+├── starter_code
+     ├── controllers [Application Business Logic is housed here]
+     ├── models [Houses Models, Model Mixins and Pivot definitions]
+     ├── routes [Has all BluePrint routes]
+     ├── services
+         ├── forms [form initializations]
+         ├── util [utilities e.g date formatting]
 
   ```
 ## 😉 Niceys Added
 * **Genres** are saved on DB with relationships to Artists and Venues
 * **Citis & States** are saved on DB with relationships to Artists and Venues
+* **Relationships (Many to Many)** 
+  * A Venue can have many Genres and a Genre can belong to Many Venues
+  * A Venue can have many Shows and a Show can be at Many Venues
+  * An Artist can be Booked at Many Shows and a Show can have Many Artists
+  * An Artist can perform Many Genres and a Genre can be performed by Many Artists
 * **Named Routes** used through the site
 * **Select2** in all Dropdowns
 * **DataTime Selector** when adding new Show
